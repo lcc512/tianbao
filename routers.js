@@ -9,8 +9,6 @@ var router=express.Router()
 
 router.get('/',function (req,res,next) {
 
-  dataProcess.test()
-
   var user={
     userid:'0100000345',
     username:'hahaa'
@@ -68,19 +66,23 @@ router.post('/calculateFee',function (req,res,next) {
         return next(err)
       }
 
-
       var bkDataFee=dataProcess.calculateFee(body,ret_G,ret_S)
 
       var lossEnumExes=dataProcess.calculateLossEnumExes(body,bkDataFee)
 
       var procedureFee=dataProcess.calculateProcedureFee(body,bkDataFee)
 
+      var calculateAllFee=dataProcess.calculateAllFee(bkDataFee,lossEnumExes,procedureFee)
+
       // 在这里添加session属性
       //把保存的user信息给session
+      // console.log(calculateAllFee)
+      
       req.session.calculateFee ={
         bkDataFee,
         lossEnumExes,
-        procedureFee
+        procedureFee,
+        calculateAllFee
       }
 
       res.status(200).json({

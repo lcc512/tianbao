@@ -1,8 +1,10 @@
-body {
-  padding: 20px;
+header {
+  height: 50px;
+  background-color: darkslateblue;
+  color: #fff;
 }
-.bkDataFee table {
-  width: 80%;
+.mainFeeTable {
+  padding: 0 40px;
 }
 .tableTdBolder {
   font-weight: 700;
@@ -11,5 +13,10 @@ body {
   margin: 20px 0;
   padding: 10px 0;
   border-bottom: 2px solid #ccc;
+  width: 200px;
+}
+.fontColorRed {
+  font-weight: 700;
+  color: red;
 }
 /*# sourceMappingURL=main.css.map */

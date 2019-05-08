@@ -1,3 +1,7 @@
+// 解决计算精度问题
+// var Decimal = require('decimal.js');
+
+
 /**
  * 计算电度电费
  * @param body 请求对象
@@ -56,6 +60,17 @@ function calculateFee(body, priceObject_G, priceObject_S) {
   // 电度电费合计
   all.TotExe = g.bkDataFeeAll + s.bkDataFeeAll
 
+  // 电表补收=电度电费-（工业分段单项电费合计）/动照比
+
+  all.meterRecharge = all.TotExe - g.bkDataFeeAll / ((body.ratio) / 100)
+
+  all.meterBkFee = all.TotExe - all.meterRecharge
+
+  console.log(all)
+
+  // 基本电费，其他电费一并先放这里
+  all.baseExes = body.baseExes
+  all.otherExes = body.otherExes
 
   // 遍历，保留两位小数
   for (var index in g) {
@@ -100,9 +115,9 @@ function calculateLossEnumExes(body, result) {
   var s = {}
   var all = {}
 
-  g.lossEnumExes = result.g.bkDataFeeAll*(body.lossNum  / result.all.enumNum)
-  s.lossEnumExes = result.s.bkDataFeeAll*(body.lossNum  / result.all.enumNum)
-  
+  g.lossEnumExes = result.g.bkDataFeeAll * (body.lossNum / result.all.enumNum)
+  s.lossEnumExes = result.s.bkDataFeeAll * (body.lossNum / result.all.enumNum)
+
   // console.log(g)
 
   all.lossEnumExes = g.lossEnumExes + s.lossEnumExes
@@ -125,11 +140,14 @@ function calculateLossEnumExes(body, result) {
     all
 
   }
-
-
 }
 
-//计算奖惩
+/**
+ * 计算奖惩
+ * @param body 请求体
+ * @param resultBkdata 电度电费返回对象
+ * @returns {{g, s, all}}
+ */
 function calculateProcedureFee(body, resultBkdata) {
 
   // 遍历，转换为浮点数
@@ -143,17 +161,18 @@ function calculateProcedureFee(body, resultBkdata) {
 
   // 基金附加费用
   // 基金及附加金额A=基金及附加单价*（有功电度A+变损电量A）
-  g.surcharge=0.0291*(resultBkdata.g.enumNum+body.lossNum*body.ratio)
-  s.surcharge=0.0291*(resultBkdata.s.enumNum+body.lossNum*(100-body.ratio)/100)
+
+  g.surcharge = 0.0291 * (parseFloat(resultBkdata.g.enumNum) + body.lossNum * (body.ratio / 100))
+  s.surcharge = 0.0291 * (parseFloat(resultBkdata.s.enumNum) + body.lossNum * (1 - body.ratio / 100))
 
   // 奖惩电费
   // 功率因数调整电费A=（基本电费+电度电费A-基金及附加金额A）*系数A(大工业0.9标准值)
-  g.procedureFee=(body.baseExes+resultBkdata.g.bkDataFeeAll-g.surcharge)*body.power_G
+
+  g.procedureFee = (body.baseExes + parseFloat(resultBkdata.g.bkDataFeeAll) - parseFloat(g.surcharge)) * body.power_G
   // 功率因数调整电费B=（电度电费B-基金及附加金额B）*系数B（一般工商业0.85标准值）
-  s.procedureFee=(resultBkdata.s.bkDataFeeAll-s.surcharge)*body.power_S
+  s.procedureFee = (parseFloat(resultBkdata.s.bkDataFeeAll) - s.surcharge) * body.power_S
 
-  all.procedureFee=g.procedureFee+s.procedureFee
-
+  all.procedureFee = g.procedureFee + s.procedureFee
 
 
   // 遍历，保留两位小数
@@ -176,8 +195,51 @@ function calculateProcedureFee(body, resultBkdata) {
 
 }
 
+
+//计算合计
+function calculateAllFee(resultBkdata, lossEnumExes, procedureFee) {
+
+  // 遍历，转换为浮点数
+  for (var index in resultBkdata.all) {
+    resultBkdata.all[index] = parseFloat(resultBkdata.all[index])
+  }
+  for (var index in lossEnumExes.all) {
+    lossEnumExes.all[index] = parseFloat(lossEnumExes.all[index])
+  }
+  for (var index in procedureFee.all) {
+    procedureFee.all[index] = parseFloat(procedureFee.all[index])
+  }
+
+
+  var all = {}
+
+
+  // 电费合计=电度电费+基本电费+变损电费+奖惩电费+其他电费
+
+  // 应收合计=基本电费+变损+奖惩+其他+动照比差额电费
+
+  all.allFee = resultBkdata.all.TotExe + resultBkdata.all.baseExes + lossEnumExes.all.lossEnumExes + procedureFee.all.procedureFee + resultBkdata.all.otherExes
+
+  console.log(all)
+
+  all.shouldallFee = resultBkdata.all.baseExes + lossEnumExes.all.lossEnumExes + procedureFee.all.procedureFee + resultBkdata.all.otherExes + resultBkdata.all.meterRecharge
+
+
+  // 遍历，保留两位小数
+  for (var index in all) {
+    all[index] = all[index].toFixed(2)
+  }
+
+  return {
+    all
+  }
+
+}
+
+
 module.exports = {
   calculateFee,
   calculateLossEnumExes,
-  calculateProcedureFee
+  calculateProcedureFee,
+  calculateAllFee
 }
