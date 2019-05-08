@@ -1,0 +1,104 @@
+{{extend './_layout/home.html'}}
+
+{{block 'fillInfo'}}
+<div class="bkDataFee">
+  <h2 class="myH2Style">计算信息</h2>
+
+  <!--填入项-->
+  <div class="fillInfo container">
+    <form id="calculateFee">
+      <div class="row">
+        <div class="form-group col-md-3 text-right">
+          <label for="">基本电费</label>
+          <input name="baseExes" type="text" placeholder="">
+        </div>
+        <div class="form-group col-md-3 text-right">
+          <label for="">变损电量</label>
+          <input name="lossNum" type="text" placeholder="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3 text-right">
+          <label for="">奖惩系数工业</label>
+          <input name="power_G" type="text" placeholder="">
+        </div>
+        <div class="form-group col-md-3 text-right">
+          <label for="">奖惩系统商业</label>
+          <input name="power_S" type="text" placeholder="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3 text-right">
+          <label for="">电价版本</label>
+          <select name="selectedPrice">
+            <option value="pr1301" selected>pr1301工业</option>
+            <option value="pr1302">pr1302动照比用商业</option>
+            <option value="pr1303">pr1303大商</option>
+            <option value="pr1304">pr1304小商</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3 text-right">
+          <label for="">动照比</label>
+          <input name="ratio" type="text" placeholder="百分比数字">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3 text-right">
+          <label for="">尖电量</label>
+          <input name="tinNum" type="text" placeholder="尖端电量">
+        </div>
+        <div class="form-group col-md-3 text-right">
+          <label for="">峰电量</label>
+          <input name="peakNum" type="text" placeholder="峰段电量">
+        </div>
+        <div class="form-group col-md-3 text-right">
+          <label for="">平电量</label>
+          <input name="flatNum" type="text" placeholder="平段电量">
+        </div>
+        <div class="form-group col-md-3 text-right">
+          <label for="">谷电量</label>
+          <input name="valNum" type="text" placeholder="谷段电量">
+        </div>
+      </div>
+      <div class="form-group col-md-3 text-right">
+        <button type="submit" class="btn btn-success btn-block">计算</button>
+      </div>
+
+    </form>
+  </div>
+
+
+</div>
+{{/block}}
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+{{block 'script'}}
+<script>
+
+
+  // 电度电费计算
+  ;(function () {
+
+
+    $('#calculateFee').on('submit', function (e) {
+      e.preventDefault()
+
+      var formData = $(this).serialize()
+
+      $.ajax({
+        url: '/calculateFee',
+        type: 'post',
+        data: formData,//提交的数据
+        dataType: 'json',//预期服务器返回的数据类型
+        success: function (data) {
+          // console.log('chengongla')
+          // console.log(data)
+          window.location.href = '/calculateFee'
+        }
+      })
+    })
+
+  }())
+
+
+</script>
+{{/block}}

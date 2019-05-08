@@ -1,0 +1,115 @@
+{{extend './_layout/home.html'}}
+
+{{block 'bkDataFee'}}
+
+<h2 class="myH2Style">电度电费</h2>
+<table class="table table-bordered table-striped text-right">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>工业动照比</th>
+    <th>工业电量</th>
+    <th>工业单价</th>
+    <th>工业电费</th>
+    <th>商业动照比</th>
+    <th>商业电量</th>
+    <th>商业单价</th>
+    <th>商业电费</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  {{if data.err!=0}}
+
+  <tr id="tin">
+    <td>尖</td>
+    <td>{{data.bkDataFee.g.ratio}}</td>
+    <td>{{data.bkDataFee.g.tinNum}}</td>
+    <td>{{data.bkDataFee.p_G.priceTin}}</td>
+    <td>{{data.bkDataFee.g.tinExe}}</td>
+    <td>{{data.bkDataFee.s.ratio}}</td>
+    <td>{{data.bkDataFee.s.tinNum}}</td>
+    <td>{{data.bkDataFee.p_S.priceTin}}</td>
+    <td>{{data.bkDataFee.s.tinExe}}</td>
+  </tr>
+  <tr id="peak">
+    <td>峰</td>
+    <td>{{data.bkDataFee.g.ratio}}</td>
+    <td>{{data.bkDataFee.g.peakNum}}</td>
+    <td>{{data.bkDataFee.p_G.pricePeak}}</td>
+    <td>{{data.bkDataFee.g.peakExe}}</td>
+    <td>{{data.bkDataFee.s.ratio}}</td>
+    <td>{{data.bkDataFee.s.peakNum}}</td>
+    <td>{{data.bkDataFee.p_S.pricePeak}}</td>
+    <td>{{data.bkDataFee.s.peakExe}}</td>
+  </tr>
+  <tr id="flat">
+    <td>平</td>
+    <td>{{data.bkDataFee.g.ratio}}</td>
+    <td>{{data.bkDataFee.g.flatNum}}</td>
+    <td>{{data.bkDataFee.p_G.priceFlat}}</td>
+    <td>{{data.bkDataFee.g.flatExe}}</td>
+    <td>{{data.bkDataFee.s.ratio}}</td>
+    <td>{{data.bkDataFee.s.flatNum}}</td>
+    <td>{{data.bkDataFee.p_S.priceFlat}}</td>
+    <td>{{data.bkDataFee.s.flatExe}}</td>
+  </tr>
+  <tr id="val">
+    <td>谷</td>
+    <td>{{data.bkDataFee.g.ratio}}</td>
+    <td>{{data.bkDataFee.g.valNum}}</td>
+    <td>{{data.bkDataFee.p_G.priceVal}}</td>
+    <td>{{data.bkDataFee.g.valExe}}</td>
+    <td>{{data.bkDataFee.s.ratio}}</td>
+    <td>{{data.bkDataFee.s.valNum}}</td>
+    <td>{{data.bkDataFee.p_S.priceVal}}</td>
+    <td>{{data.bkDataFee.s.valExe}}</td>
+  </tr>
+  <tr id="other">
+    <td class="tableTdBolder">电量</td>
+    <td class="tableTdBolder">工业电量合计</td>
+    <td>{{data.bkDataFee.g.enumNum}}</td>
+    <td class="tableTdBolder">商业电量合计</td>
+    <td>{{data.bkDataFee.s.enumNum}}</td>
+    <td class="tableTdBolder">总电量</td>
+    <td>{{data.bkDataFee.all.enumNum}}</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="tableTdBolder">电度电费</td>
+    <td class="tableTdBolder">工业电费合计</td>
+    <td>{{data.bkDataFee.g.bkDataFeeAll}}</td>
+    <td class="tableTdBolder">商业电费合计</td>
+    <td>{{data.bkDataFee.s.bkDataFeeAll}}</td>
+    <td class="tableTdBolder">总电度电费</td>
+    <td>{{data.bkDataFee.all.TotExe}}</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="tableTdBolder">变损电费</td>
+    <td class="tableTdBolder">工业变损电费合计</td>
+    <td>{{data.lossEnumExes.g.lossEnumExes}}</td>
+    <td class="tableTdBolder">商业变损电费合计</td>
+    <td>{{data.lossEnumExes.s.lossEnumExes}}</td>
+    <td class="tableTdBolder">总变损电费</td>
+    <td>{{data.lossEnumExes.all.lossEnumExes}}</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="tableTdBolder">奖惩电费</td>
+    <td class="tableTdBolder">工业奖惩电费</td>
+    <td>{{data.procedureFee.g.procedureFee}}</td>
+    <td class="tableTdBolder">商业奖惩电费</td>
+    <td>{{data.procedureFee.s.procedureFee}}</td>
+    <td class="tableTdBolder">总奖惩电费</td>
+    <td>{{data.procedureFee.all.procedureFee}}</td>
+    <td></td>
+    <td></td>
+  </tr>
+  {{/if}}
+  </tbody>
+</table>
+{{/block}}

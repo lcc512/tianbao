@@ -1,0 +1,15 @@
+body {
+  padding: 20px;
+}
+.bkDataFee table {
+  width: 80%;
+}
+.tableTdBolder {
+  font-weight: 700;
+}
+.myH2Style {
+  margin: 20px 0;
+  padding: 10px 0;
+  border-bottom: 2px solid #ccc;
+}
+/*# sourceMappingURL=main.css.map */
