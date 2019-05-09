@@ -7,7 +7,9 @@ header ul {
   list-style: none;
 }
 header ul li {
+  width: 100px;
   float: left;
+  text-align: center;
 }
 header ul li.logoName {
   font-size: 28px;
@@ -32,17 +34,12 @@ header ul li a:hover {
   background-color: #f7f7f7;
   border-radius: 5px;
 }
-.mainFeeTable {
-  padding: 0 40px;
-}
 .tableTdBolder {
   font-weight: 700;
 }
 .myH2Style {
-  margin: 20px 0;
+  margin: 20px 0 0 0;
   padding: 10px 0 0;
-  border-bottom: 1px solid #ccc;
-  width: 110px;
 }
 .fontColorRed {
   font-weight: 700;

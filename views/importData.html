@@ -6,21 +6,23 @@
 {{/block}}
 
 {{block 'fillInfo'}}
-<div class="container-sql">
-  <h3>注意</h3>
+<div class="container">
+  <h3 class="myH2Style">上传用户</h3>
+  <p style="color:red;">注意：</p>
   <p>暂时未做查重处理，清空原始数据库后导入</p>
-  <p>1,导入数据到excel表格，最后一列全填“#”，然后复制到这里</p>
+  <p>根据sql导入数据到excel表格，最后一列全填“#”，然后复制到这里，sql语句如下</p>
+  <p>select * from user</p>
 
-  <div class="container divBaseStyle">
-  <form id="addUsers" action="">
-    <div class="form-group">
-      <label style="display: block">输入文本</label>
-      <textarea class="importTextarea" name="dataStr" id="sqlId" cols="30" rows="10"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">上传信息</button>
-  </form>
-  <br>
-  <button id="backIndex" class="btn">返回主页</button>
+  <div class="divBaseStyle">
+    <form id="addUsers" action="">
+      <div class="form-group">
+        <label style="display: block">输入文本</label>
+        <textarea class="importTextarea" name="dataStr" id="sqlId" cols="30" rows="10"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">上传信息</button>
+    </form>
+    <br>
+    <button id="backIndex" class="btn">返回主页</button>
   </div>
 </div>
 

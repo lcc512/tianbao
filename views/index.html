@@ -7,91 +7,101 @@
 {{block 'fillInfo'}}
 <div class="bkDataFee">
 
-  <h3 class="myH2Style">用户查找</h3>
-  <div class="container divBaseStyle">
 
-    <form id="findUser">
+  <div class="container ">
+    <h3 class="myH2Style">用户查找</h3>
+    <div class="divBaseStyle">
 
-        <div class="form-group">
-          <label for="">用户编号</label>
-          <input name="userId" type="text" placeholder="">
+      <form id="findUser">
+        <div class="row">
+          <div class="form-group col-md-3 col-sm-6 ">
+            <label for="">用户编号</label>
+            <input class="form-control" name="userId" type="text" placeholder="">
+          </div>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">查找</button>
-        </div>
+          <div class="row">
+            <div class="form-group col-md-3 col-sm-6 ">
+              <button type="submit" class="btn btn-primary btn-block">查找</button>
+            </div>
+          </div>
+      </form>
 
-    </form>
     <p id="userId">用户编号：<span></span></p>
     <p id="userName">用户名称：<span></span></p>
   </div>
+</div>
 
-  <!--填入项-->
+<!--填入项-->
+<div class="container">
   <h3 class="myH2Style">信息录入</h3>
-  <div class="fillInfo container divBaseStyle">
+  <div class="divBaseStyle">
     <form id="calculateFee">
       <div class="row">
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6 ">
           <label for="">基本电费</label>
-          <input name="baseExes" type="text" placeholder="">
+          <input class="form-control" name="baseExes" type="text" placeholder="">
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6   ">
           <label for="">变损电量</label>
-          <input name="lossNum" type="text" placeholder="">
+          <input class="form-control" name="lossNum" type="text" placeholder="">
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3  col-sm-6  ">
           <label for="">其他电费</label>
-          <input name="otherExes" type="text" placeholder="">
+          <input class="form-control" name="otherExes" type="text" placeholder="">
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">奖惩系数工业</label>
-          <input name="power_G" type="text" placeholder="">
+          <input class="form-control" name="power_G" type="text" placeholder="">
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">奖惩系统商业</label>
-          <input name="power_S" type="text" placeholder="">
+          <input class="form-control" name="power_S" type="text" placeholder="">
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">电价版本</label>
-          <select name="selectedPrice">
+          <select class="form-control" name="selectedPrice">
             <option value="pr1301" selected>pr1301工业</option>
             <option value="pr1302">pr1302动照比用商业</option>
             <option value="pr1303">pr1303大商</option>
             <option value="pr1304">pr1304小商</option>
           </select>
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">动照比</label>
-          <input name="ratio" type="text" placeholder="百分比数字">
+          <input class="form-control" name="ratio" type="text" placeholder="百分比数字">
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">尖电量</label>
-          <input name="tinNum" type="text" placeholder="尖端电量">
+          <input class="form-control" name="tinNum" type="text" placeholder="尖端电量">
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">峰电量</label>
-          <input name="peakNum" type="text" placeholder="峰段电量">
+          <input class="form-control" name="peakNum" type="text" placeholder="峰段电量">
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">平电量</label>
-          <input name="flatNum" type="text" placeholder="平段电量">
+          <input class="form-control" name="flatNum" type="text" placeholder="平段电量">
         </div>
-        <div class="form-group col-md-3 text-right">
+        <div class="form-group col-md-3 col-sm-6  ">
           <label for="">谷电量</label>
-          <input name="valNum" type="text" placeholder="谷段电量">
+          <input class="form-control" name="valNum" type="text" placeholder="谷段电量">
         </div>
       </div>
-      <div class="form-group col-md-3 text-right">
-        <button type="submit" class="btn btn-primary btn-block">计算</button>
+      <div class="row">
+        <div class="form-group col-md-3 col-sm-6  ">
+          <button type="submit" class="btn btn-primary btn-block">计算</button>
+        </div>
       </div>
 
     </form>
   </div>
+</div>
 
 
 </div>
@@ -134,12 +144,12 @@
         data: formData,//提交的数据
         dataType: 'json',//预期服务器返回的数据类型
         success: function (data) {
-          
+
           console.log(data)
 
-          var user=data.result
+          var user = data.result
 
-          if(user){
+          if (user) {
 
             $('#userId>span').text(user.userId)
             $('#userName>span').text(user.userName)
@@ -147,7 +157,7 @@
             $("[name='lossNum']").val(user.lossNum)
             $("[name='baseExes']").val(user.baseExes)
             $("[name='ratio']").val(user.ratio)
-          }else {
+          } else {
             window.alert('未找到所填用户编号的信息，请查证后输入')
           }
 
