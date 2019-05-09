@@ -237,9 +237,54 @@ function calculateAllFee(resultBkdata, lossEnumExes, procedureFee) {
 }
 
 
+// 处理新增批量用户
+function addManyUsers(data) {
+
+  var arr = data.split(/#/)
+
+  arr.pop()
+
+  var retArr = []
+
+  arr.forEach(function (item, index, arr) {
+    retArr[index] = arr[index].split(/\t/)
+
+    retArr[index].pop()
+
+    retArr[index][0] = retArr[index][0].replace(/\s/g, '')
+
+  })
+
+  // console.log(retArr)
+
+
+  var usersCollection = []
+
+  retArr.forEach(function (item, index, arr) {
+
+    var user = {
+      userId: item[0],
+      userName: item[1],
+      baseExes: item[2],
+      lossNum: item[3],
+      priceId: item[4],
+      ratio: item[5],
+      isFengGu: item[6]
+    }
+
+
+    usersCollection.push(user)
+
+  })
+
+  return usersCollection
+}
+
+
 module.exports = {
   calculateFee,
   calculateLossEnumExes,
   calculateProcedureFee,
-  calculateAllFee
+  calculateAllFee,
+  addManyUsers
 }

@@ -2,6 +2,12 @@ header {
   height: 50px;
   background-color: darkslateblue;
   color: #fff;
+  line-height: 50px;
+  font-size: 28px;
+}
+.divBaseStyle {
+  padding: 20px;
+  background-color: #eee;
 }
 .mainFeeTable {
   padding: 0 40px;
@@ -11,9 +17,9 @@ header {
 }
 .myH2Style {
   margin: 20px 0;
-  padding: 10px 0;
+  padding: 10px 0 0;
   border-bottom: 2px solid #ccc;
-  width: 200px;
+  width: 150px;
 }
 .fontColorRed {
   font-weight: 700;

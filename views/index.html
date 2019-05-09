@@ -2,10 +2,30 @@
 
 {{block 'fillInfo'}}
 <div class="bkDataFee">
-  <h2 class="myH2Style">信息录入</h2>
+
+  <a href="/addUsers">批量上传用户信息</a>
+  <h3 class="myH2Style">用户查找</h3>
+
+  <div class="container divBaseStyle">
+
+    <form id="findUser">
+
+        <div class="form-group">
+          <label for="">用户编号</label>
+          <input name="userId" type="text" placeholder="">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn">查找</button>
+        </div>
+
+    </form>
+    <p id="userId">用户编号：<span></span></p>
+    <p id="userName">用户名称：<span></span></p>
+  </div>
 
   <!--填入项-->
-  <div class="fillInfo container">
+  <h3 class="myH2Style">信息录入</h3>
+  <div class="fillInfo container divBaseStyle">
     <form id="calculateFee">
       <div class="row">
         <div class="form-group col-md-3 text-right">
@@ -82,7 +102,7 @@
   // 电度电费计算
   ;(function () {
 
-
+// 计算电费
     $('#calculateFee').on('submit', function (e) {
       e.preventDefault()
 
@@ -97,6 +117,31 @@
           // console.log('chengongla')
           // console.log(data)
           window.location.href = '/calculateFee'
+        }
+      })
+    })
+
+
+    // 查找用户
+    $('#findUser').on('submit', function (e) {
+      e.preventDefault()
+
+      var formData = $(this).serialize()
+
+      $.ajax({
+        url: '/findUser',
+        type: 'post',
+        data: formData,//提交的数据
+        dataType: 'json',//预期服务器返回的数据类型
+        success: function (data) {
+
+          var user=data.result
+
+          $('#userId>span').text(user.userId)
+          $('#userName>span').text(user.userName)
+
+          $("[name='lossNum']").val(user.lossNum)
+          $("[name='baseExes']").val(user.baseExes)
         }
       })
     })

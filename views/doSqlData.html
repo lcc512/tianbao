@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  <!--<link rel="stylesheet" href="assert/plugins/css/animate.min.css">-->
+  <!--<link rel="stylesheet" href="assert/css/sqlForPwr.css">-->
+  <!--<script src="node_modules/vue/dist/vue.min.js"></script>-->
+  <title>上传用户信息</title>
+  <noscript>
+    <p>这个浏览器不让用javascript，高级设置开一下</p>
+  </noscript>
+  <style>
+
+    textarea {
+      width: 100%;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container-sql">
+  <h3>注意</h3>
+  <p>暂时未做查重处理，清空原始数据库后导入</p>
+
+  <form id="addUsers" action="">
+
+    <div class="sql-id">
+      <laber>输入文本</laber>
+
+      <textarea name="dataStr" id="sqlId" cols="30" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">上传</button>
+
+  </form>
+  <br>
+  <button id="backIndex" class="btn">返回主页</button>
+
+</div>
+
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+
+  ;(function () {
+
+    $('#backIndex').on('click',function () {
+      window.location.href='/'
+    })
+
+
+    $('#addUsers').on('submit', function (e) {
+
+      console.log(123)
+      e.preventDefault()
+
+      var formData = $(this).serialize()
+
+      $.ajax({
+        url: '/addUsers',
+        type: 'post',
+        data: formData,//提交的数据
+        dataType: 'json',//预期服务器返回的数据类型
+        success: function (data) {
+          // console.log('chengongla')
+          // console.log(data)
+          window.alert('上传成功！')
+          window.location.href = '/'
+        }
+      })
+
+
+    })
+
+  }())
+
+
+
+
+</script>
+</body>
+</html>
