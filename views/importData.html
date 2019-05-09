@@ -1,0 +1,67 @@
+{{extend './_layout/home.html'}}
+
+
+{{block 'htmlTitle'}}
+<title>用户导入</title>
+{{/block}}
+
+{{block 'fillInfo'}}
+<div class="container-sql">
+  <h3>注意</h3>
+  <p>暂时未做查重处理，清空原始数据库后导入</p>
+  <p>1,导入数据到excel表格，最后一列全填“#”，然后复制到这里</p>
+
+  <div class="container divBaseStyle">
+  <form id="addUsers" action="">
+    <div class="form-group">
+      <label style="display: block">输入文本</label>
+      <textarea class="importTextarea" name="dataStr" id="sqlId" cols="30" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">上传信息</button>
+  </form>
+  <br>
+  <button id="backIndex" class="btn">返回主页</button>
+  </div>
+</div>
+
+{{/block}}
+
+
+{{block 'script'}}
+
+
+<script>
+
+  ;(function () {
+
+    $('#backIndex').on('click', function () {
+      window.location.href = '/'
+    })
+
+
+    $('#addUsers').on('submit', function (e) {
+
+      e.preventDefault()
+
+      var formData = $(this).serialize()
+
+      $.ajax({
+        url: '/addUsers',
+        type: 'post',
+        data: formData,//提交的数据
+        dataType: 'json',//预期服务器返回的数据类型
+        success: function (data) {
+          window.alert('上传成功！')
+          window.location.href = '/'
+        }
+      })
+
+
+    })
+
+  }())
+
+
+</script>
+
+{{/block}}

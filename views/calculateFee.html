@@ -1,5 +1,9 @@
 {{extend './_layout/home.html'}}
 
+{{block 'htmlTitle'}}
+<title>电费详情</title>
+{{/block}}
+
 {{block 'bkDataFee'}}
 
 <h3 class="myH2Style">电费详情</h3>
@@ -91,12 +95,12 @@
     <td></td>
   </tr>
   <tr>
-    <td class="tableTdBolder"></td>
+    <td colspan="5"></td>
     <td class="tableTdBolder">电表实收金额</td>
     <td class="fontColorRed">{{data.bkDataFee.all.meterBkFee}}</td>
     <td class="tableTdBolder">动照比差额电费</td>
     <td class="fontColorRed">{{data.bkDataFee.all.meterRecharge}}</td>
-    <td colspan="4"></td>
+
   </tr>
   <tr>
     <td colspan="9"></td>

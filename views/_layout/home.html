@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  {{block 'htmlTitle'}}{{/block}}
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="/public/css/main.css">
 </head>
 <body>
 <header>
-  <p>天保算费辅助</p>
+  <ul class="clearfix">
+    <li class="logoName">
+      天保算费辅助小页
+    </li>
+    <li>
+      <a href="/addUsers">上传用户</a>
+    </li>
+    <li>
+      <a href="/addUsers">调价算费</a>
+    </li>
+  </ul>
 </header>
-<div class="userInfo">
-  <h3 class="myH2Style">功能</h3>
-</div>
 <!--填入项-->
 {{block 'fillInfo'}}{{/block}}
 <!--电度电费-->

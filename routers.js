@@ -120,22 +120,18 @@ router.post('/findUser', function (req, res, next) {
 // 批量添加用户信息
 router.get('/addUsers', function (req, res, next) {
 
-
-  res.render('doSqlData.html')
+  res.render('importData.html')
 
 })
 
-
+// 发送批量添加用户信息请求
 router.post('/addUsers', function (req, res, next) {
 
   // 获得请求参数
   var body = req.body
 
-  console.log(body)
-
 
   var usersCollection = dataProcess.addManyUsers(body.dataStr)
-
 
   // 批量插入数据
   User.collection.insert(usersCollection, function (err, ret) {

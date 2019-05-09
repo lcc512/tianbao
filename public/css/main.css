@@ -1,13 +1,36 @@
 header {
   height: 50px;
-  background-color: darkslateblue;
+  background-color: #0e4779;
   color: #fff;
-  line-height: 50px;
+}
+header ul {
+  list-style: none;
+}
+header ul li {
+  float: left;
+}
+header ul li.logoName {
   font-size: 28px;
+  width: 300px;
+  text-align: left;
+  line-height: 50px;
+}
+header ul li a {
+  display: block;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 50px;
+  text-decoration: none;
+}
+header ul li a:hover {
+  color: #fff;
+  background-color: #f68d1c;
 }
 .divBaseStyle {
   padding: 20px;
-  background-color: #eee;
+  background-color: #f7f7f7;
+  border-radius: 5px;
 }
 .mainFeeTable {
   padding: 0 40px;
@@ -18,11 +41,14 @@ header {
 .myH2Style {
   margin: 20px 0;
   padding: 10px 0 0;
-  border-bottom: 2px solid #ccc;
-  width: 150px;
+  border-bottom: 1px solid #ccc;
+  width: 110px;
 }
 .fontColorRed {
   font-weight: 700;
   color: red;
+}
+.importTextarea {
+  width: 100%;
 }
 /*# sourceMappingURL=main.css.map */

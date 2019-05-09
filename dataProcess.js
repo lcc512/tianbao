@@ -24,33 +24,33 @@ function calculateFee(body, priceObject_G, priceObject_S) {
   var all = {}
 
   //工业商业电量=电量(动照比/100)
-  g.ratio = body.ratio
-  s.ratio = 100 - body.ratio
+  g.ratio = body.ratio||0
+  s.ratio = 100 - body.ratio||0
 
-  g.tinNum = body.tinNum * (body.ratio) / 100
-  g.peakNum = body.peakNum * (body.ratio) / 100
-  g.flatNum = body.flatNum * (body.ratio) / 100
-  g.valNum = body.valNum * (body.ratio) / 100
+  g.tinNum = body.tinNum * (body.ratio) / 100||0
+  g.peakNum = body.peakNum * (body.ratio) / 100||0
+  g.flatNum = body.flatNum * (body.ratio) / 100||0
+  g.valNum = body.valNum * (body.ratio) / 100||0
 
-  s.tinNum = body.tinNum * (100 - body.ratio) / 100
-  s.peakNum = body.peakNum * (100 - body.ratio) / 100
-  s.flatNum = body.flatNum * (100 - body.ratio) / 100
-  s.valNum = body.valNum * (100 - body.ratio) / 100
+  s.tinNum = body.tinNum * (100 - body.ratio) / 100||0
+  s.peakNum = body.peakNum * (100 - body.ratio) / 100||0
+  s.flatNum = body.flatNum * (100 - body.ratio) / 100||0
+  s.valNum = body.valNum * (100 - body.ratio) / 100||0
 
   // 电费=电量*(动照比/100)*单价
-  g.tinExe = body.tinNum * (body.ratio) / 100 * priceObject_G.priceTin
-  g.peakExe = body.peakNum * (body.ratio) / 100 * priceObject_G.pricePeak
-  g.flatExe = body.flatNum * (body.ratio) / 100 * priceObject_G.priceFlat
-  g.valExe = body.valNum * (body.ratio) / 100 * priceObject_G.priceVal
+  g.tinExe = body.tinNum * (body.ratio) / 100 * priceObject_G.priceTin||0
+  g.peakExe = body.peakNum * (body.ratio) / 100 * priceObject_G.pricePeak||0
+  g.flatExe = body.flatNum * (body.ratio) / 100 * priceObject_G.priceFlat||0
+  g.valExe = body.valNum * (body.ratio) / 100 * priceObject_G.priceVal||0
 
-  s.tinExe = body.tinNum * (100 - body.ratio) / 100 * priceObject_S.priceTin
-  s.peakExe = body.peakNum * (100 - body.ratio) / 100 * priceObject_S.pricePeak
-  s.flatExe = body.flatNum * (100 - body.ratio) / 100 * priceObject_S.priceFlat
-  s.valExe = body.valNum * (100 - body.ratio) / 100 * priceObject_S.priceVal
+  s.tinExe = body.tinNum * (100 - body.ratio) / 100 * priceObject_S.priceTin||0
+  s.peakExe = body.peakNum * (100 - body.ratio) / 100 * priceObject_S.pricePeak||0
+  s.flatExe = body.flatNum * (100 - body.ratio) / 100 * priceObject_S.priceFlat||0
+  s.valExe = body.valNum * (100 - body.ratio) / 100 * priceObject_S.priceVal||0
 
 
-  g.enumNum = (body.tinNum + body.peakNum + body.flatNum + body.valNum) * body.ratio / 100
-  s.enumNum = (body.tinNum + body.peakNum + body.flatNum + body.valNum) * (100 - body.ratio) / 100
+  g.enumNum = (body.tinNum + body.peakNum + body.flatNum + body.valNum) * body.ratio / 100||0
+  s.enumNum = (body.tinNum + body.peakNum + body.flatNum + body.valNum) * (100 - body.ratio) / 100||0
 
   all.enumNum = g.enumNum + s.enumNum
 
@@ -66,11 +66,9 @@ function calculateFee(body, priceObject_G, priceObject_S) {
 
   all.meterBkFee = all.TotExe - all.meterRecharge
 
-  console.log(all)
-
-  // 基本电费，其他电费一并先放这里
-  all.baseExes = body.baseExes
-  all.otherExes = body.otherExes
+  // 基本电费，其他电费一并先放这里，为空的话这里填0
+  all.baseExes = body.baseExes||0
+  all.otherExes = body.otherExes||0
 
   // 遍历，保留两位小数
   for (var index in g) {
@@ -115,8 +113,8 @@ function calculateLossEnumExes(body, result) {
   var s = {}
   var all = {}
 
-  g.lossEnumExes = result.g.bkDataFeeAll * (body.lossNum / result.all.enumNum)
-  s.lossEnumExes = result.s.bkDataFeeAll * (body.lossNum / result.all.enumNum)
+  g.lossEnumExes = result.g.bkDataFeeAll * (body.lossNum / result.all.enumNum)||0
+  s.lossEnumExes = result.s.bkDataFeeAll * (body.lossNum / result.all.enumNum)||0
 
   // console.log(g)
 
@@ -162,15 +160,15 @@ function calculateProcedureFee(body, resultBkdata) {
   // 基金附加费用
   // 基金及附加金额A=基金及附加单价*（有功电度A+变损电量A）
 
-  g.surcharge = 0.0291 * (parseFloat(resultBkdata.g.enumNum) + body.lossNum * (body.ratio / 100))
-  s.surcharge = 0.0291 * (parseFloat(resultBkdata.s.enumNum) + body.lossNum * (1 - body.ratio / 100))
+  g.surcharge = 0.0291 * (parseFloat(resultBkdata.g.enumNum) + body.lossNum * (body.ratio / 100))||0
+  s.surcharge = 0.0291 * (parseFloat(resultBkdata.s.enumNum) + body.lossNum * (1 - body.ratio / 100))||0
 
   // 奖惩电费
   // 功率因数调整电费A=（基本电费+电度电费A-基金及附加金额A）*系数A(大工业0.9标准值)
 
-  g.procedureFee = (body.baseExes + parseFloat(resultBkdata.g.bkDataFeeAll) - parseFloat(g.surcharge)) * body.power_G
+  g.procedureFee = (body.baseExes + parseFloat(resultBkdata.g.bkDataFeeAll) - parseFloat(g.surcharge)) * body.power_G||0
   // 功率因数调整电费B=（电度电费B-基金及附加金额B）*系数B（一般工商业0.85标准值）
-  s.procedureFee = (parseFloat(resultBkdata.s.bkDataFeeAll) - s.surcharge) * body.power_S
+  s.procedureFee = (parseFloat(resultBkdata.s.bkDataFeeAll) - s.surcharge) * body.power_S||0
 
   all.procedureFee = g.procedureFee + s.procedureFee
 
@@ -218,11 +216,8 @@ function calculateAllFee(resultBkdata, lossEnumExes, procedureFee) {
 
   // 应收合计=基本电费+变损+奖惩+其他+动照比差额电费
 
-  all.allFee = resultBkdata.all.TotExe + resultBkdata.all.baseExes + lossEnumExes.all.lossEnumExes + procedureFee.all.procedureFee + resultBkdata.all.otherExes
-
-  console.log(all)
-
-  all.shouldallFee = resultBkdata.all.baseExes + lossEnumExes.all.lossEnumExes + procedureFee.all.procedureFee + resultBkdata.all.otherExes + resultBkdata.all.meterRecharge
+  all.allFee = resultBkdata.all.TotExe + resultBkdata.all.baseExes + lossEnumExes.all.lossEnumExes + procedureFee.all.procedureFee + resultBkdata.all.otherExes||0
+  all.shouldallFee = resultBkdata.all.baseExes + lossEnumExes.all.lossEnumExes + procedureFee.all.procedureFee + resultBkdata.all.otherExes + resultBkdata.all.meterRecharge||0
 
 
   // 遍历，保留两位小数
@@ -254,8 +249,6 @@ function addManyUsers(data) {
     retArr[index][0] = retArr[index][0].replace(/\s/g, '')
 
   })
-
-  // console.log(retArr)
 
 
   var usersCollection = []

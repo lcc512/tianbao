@@ -1,11 +1,13 @@
 {{extend './_layout/home.html'}}
 
+{{block 'htmlTitle'}}
+<title>主页</title>
+{{/block}}
+
 {{block 'fillInfo'}}
 <div class="bkDataFee">
 
-  <a href="/addUsers">批量上传用户信息</a>
   <h3 class="myH2Style">用户查找</h3>
-
   <div class="container divBaseStyle">
 
     <form id="findUser">
@@ -15,7 +17,7 @@
           <input name="userId" type="text" placeholder="">
         </div>
         <div class="form-group">
-          <button type="submit" class="btn">查找</button>
+          <button type="submit" class="btn btn-primary">查找</button>
         </div>
 
     </form>
@@ -85,7 +87,7 @@
         </div>
       </div>
       <div class="form-group col-md-3 text-right">
-        <button type="submit" class="btn btn-success btn-block">计算</button>
+        <button type="submit" class="btn btn-primary btn-block">计算</button>
       </div>
 
     </form>
@@ -125,23 +127,31 @@
     // 查找用户
     $('#findUser').on('submit', function (e) {
       e.preventDefault()
-
       var formData = $(this).serialize()
-
       $.ajax({
         url: '/findUser',
         type: 'post',
         data: formData,//提交的数据
         dataType: 'json',//预期服务器返回的数据类型
         success: function (data) {
+          
+          console.log(data)
 
           var user=data.result
 
-          $('#userId>span').text(user.userId)
-          $('#userName>span').text(user.userName)
+          if(user){
 
-          $("[name='lossNum']").val(user.lossNum)
-          $("[name='baseExes']").val(user.baseExes)
+            $('#userId>span').text(user.userId)
+            $('#userName>span').text(user.userName)
+
+            $("[name='lossNum']").val(user.lossNum)
+            $("[name='baseExes']").val(user.baseExes)
+            $("[name='ratio']").val(user.ratio)
+          }else {
+            window.alert('未找到所填用户编号的信息，请查证后输入')
+          }
+
+
         }
       })
     })
