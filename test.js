@@ -16,9 +16,12 @@ var body={
 
 
 
-new User(body).save(function (err, user) {
-  if (err) {
-    console.log(err)
-  }
-  
-})
+var a=3
+var b=4
+
+
+var c=a+b
+
+
+
+console.log(c)
