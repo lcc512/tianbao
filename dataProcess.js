@@ -72,13 +72,13 @@ function calculateFee(body, priceObject_G, priceObject_S) {
 
   // 遍历，保留两位小数
   for (var index in g) {
-    g[index] = g[index].toFixed(2)
+    g[index] = g[index].toFixed(3)
   }
   for (var index in s) {
-    s[index] = s[index].toFixed(2)
+    s[index] = s[index].toFixed(3)
   }
   for (var index in all) {
-    all[index] = all[index].toFixed(2)
+    all[index] = all[index].toFixed(3)
   }
 
 
@@ -116,20 +116,18 @@ function calculateLossEnumExes(body, result) {
   g.lossEnumExes = result.g.bkDataFeeAll * (body.lossNum / result.all.enumNum)||0
   s.lossEnumExes = result.s.bkDataFeeAll * (body.lossNum / result.all.enumNum)||0
 
-  // console.log(g)
-
   all.lossEnumExes = g.lossEnumExes + s.lossEnumExes
 
-
-  // 遍历，保留两位小数
+  // 遍历，保留三位小数
   for (var index in g) {
-    g[index] = g[index].toFixed(2)
+    g[index] = g[index].toFixed(3)
   }
   for (var index in s) {
-    s[index] = s[index].toFixed(2)
+    s[index] = s[index].toFixed(3)
   }
   for (var index in all) {
-    all[index] = all[index].toFixed(2)
+    all[index] = all[index].toFixed(3)
+    console.log(all)
   }
 
   return {
@@ -173,15 +171,17 @@ function calculateProcedureFee(body, resultBkdata) {
   all.procedureFee = g.procedureFee + s.procedureFee
 
 
+
+
   // 遍历，保留两位小数
   for (var index in g) {
-    g[index] = g[index].toFixed(2)
+    g[index] = g[index].toFixed(3)
   }
   for (var index in s) {
-    s[index] = s[index].toFixed(2)
+    s[index] = s[index].toFixed(3)
   }
   for (var index in all) {
-    all[index] = all[index].toFixed(2)
+    all[index] = all[index].toFixed(3)
   }
 
   return {
@@ -222,7 +222,7 @@ function calculateAllFee(resultBkdata, lossEnumExes, procedureFee) {
 
   // 遍历，保留两位小数
   for (var index in all) {
-    all[index] = all[index].toFixed(2)
+    all[index] = all[index].toFixed(3)
   }
 
   return {
@@ -273,11 +273,51 @@ function addManyUsers(data) {
   return usersCollection
 }
 
+// 处理新增批量电价
+function addManyPrice(data) {
+
+  var arr = data.split(/#/)
+
+  arr.pop()
+
+  var retArr = []
+
+  arr.forEach(function (item, index, arr) {
+    retArr[index] = arr[index].split(/\t/)
+
+    retArr[index].pop()
+
+    retArr[index][0] = retArr[index][0].replace(/\s/g, '')
+
+  })
+
+
+  var usersCollection = []
+
+  retArr.forEach(function (item, index, arr) {
+
+    var user = {
+      priceId: item[0],
+      priceTin: item[1],
+      pricePeak: item[2],
+      priceFlat: item[3],
+      priceVal: item[4]
+    }
+
+
+    usersCollection.push(user)
+
+  })
+
+  return usersCollection
+}
+
 
 module.exports = {
   calculateFee,
   calculateLossEnumExes,
   calculateProcedureFee,
   calculateAllFee,
-  addManyUsers
+  addManyUsers,
+  addManyPrice
 }

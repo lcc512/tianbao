@@ -9,19 +9,19 @@ var elePriceSchema=new Schema({
     required:true
   },
   priceTin:{
-    type:String,
+    type:Number,
     required:true
   },
   pricePeak:{
-    type:String,
+    type:Number,
     required:true
   },
   priceFlat:{
-    type:String,
+    type:Number,
     required:true
   },
   priceVal:{
-    type:String,
+    type:Number,
     required:true
   },
 })

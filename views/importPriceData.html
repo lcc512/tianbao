@@ -2,21 +2,21 @@
 
 
 {{block 'htmlTitle'}}
-<title>用户导入</title>
+<title>电价导入</title>
 {{/block}}
 
 {{block 'fillInfo'}}
 <div class="container">
-  <h3 class="myH2Style">上传用户</h3>
+  <h3 class="myH2Style">上传电价</h3>
   <p style="color:red;">注意：</p>
   <p>暂时未做查重处理，请删除所有数据后导入</p>
   <p>根据sql导入数据到excel表格，最后一列全填“#”，然后复制到这里，sql语句如下：</p>
-  <p>select c.USERID, c.USERNAME,  c.cap,  t.lossenum,   p.pr_id,c.AccordRatio,p.PrTParTypebr <br>
-    FROM         C_Customer as c, c_pt as p,C_Trans as t <br>
-    where c.userid=p.userid and c.userid=t.userid and c.status_code='正式'</p>
+  <p>SELECT     PrID, TinEPr, PeakPr, FlatPr, ValEPr <br>
+    FROM         C_Pr <br>
+    WHERE     (VerID = 'pr13')</p>
 
   <div class="divBaseStyle">
-    <form id="addUsers" action="">
+    <form id="addPrices" action="">
       <div class="form-group">
         <label style="display: block">输入文本</label>
         <textarea class="importTextarea" name="dataStr" id="sqlId" cols="30" rows="10"></textarea>
@@ -24,7 +24,7 @@
       <button type="submit" class="btn btn-primary">上传信息</button>
     </form>
     <br>
-    <button id="deleteAllUser" class="btn btn-danger">删除全部用户</button>
+    <button id="deleteAllPrice" class="btn btn-danger">删除全部电价信息</button>
     <button id="backIndex" class="btn">返回主页</button>
   </div>
 </div>
@@ -39,12 +39,10 @@
 
   ;(function () {
 
-    $('#deleteAllUser').on('click',function () {
-      
-      console.log(11111111)
+    $('#deleteAllPrice').on('click',function () {
 
       $.ajax({
-        url: '/deleteUserAll',
+        url: '/deletePriceAll',
         type: 'post',
         data: '',//提交的数据
         dataType: 'json',//预期服务器返回的数据类型
@@ -61,14 +59,15 @@
     })
 
 
-    $('#addUsers').on('submit', function (e) {
+
+    $('#addPrices').on('submit', function (e) {
 
       e.preventDefault()
 
       var formData = $(this).serialize()
 
       $.ajax({
-        url: '/addUsers',
+        url: '/addPrices',
         type: 'post',
         data: formData,//提交的数据
         dataType: 'json',//预期服务器返回的数据类型

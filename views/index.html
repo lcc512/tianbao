@@ -1,7 +1,7 @@
 {{extend './_layout/home.html'}}
 
 {{block 'htmlTitle'}}
-<title>主页</title>
+<title>电费计算</title>
 {{/block}}
 
 {{block 'fillInfo'}}
@@ -64,14 +64,13 @@
         <div class="form-group col-md-3 col-sm-6  ">
           <label for="">电价版本</label>
           <select class="form-control" name="selectedPrice">
-            <option value="pr1301" selected>pr1301工业</option>
-            <option value="pr1302">pr1302动照比用商业</option>
-            <option value="pr1303">pr1303大商</option>
-            <option value="pr1304">pr1304小商</option>
+            <option value="Pr1301" selected>10kv工业动照比</option>
+            <option value="Pr1304">10kv商业</option>
+            <option value="Pr1305">0.4kv商业</option>
           </select>
         </div>
         <div class="form-group col-md-3 col-sm-6  ">
-          <label for="">动照比</label>
+          <label for="">动照比(非动照比工业填100，商业填0)</label>
           <input class="form-control" name="ratio" type="text" placeholder="百分比数字">
         </div>
       </div>
@@ -106,7 +105,6 @@
 
 </div>
 {{/block}}
-<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 {{block 'script'}}
 <script>
 
@@ -157,6 +155,26 @@
             $("[name='lossNum']").val(user.lossNum)
             $("[name='baseExes']").val(user.baseExes)
             $("[name='ratio']").val(user.ratio)
+
+
+            var currentPriceId=''
+
+            var gongye=['01','02','03','06'].indexOf(user.priceId.substring(4))
+            var shangye=['04','07'].indexOf(user.priceId.substring(4))
+
+            if(gongye!==-1){
+              currentPriceId=user.priceId.substring(0,4)+'01'
+            }else if(shangye!==-1){
+              currentPriceId=user.priceId.substring(0,4)+'04'
+            }else{
+              currentPriceId=user.priceId
+            }
+
+            $("[name='selectedPrice']").val(currentPriceId)
+
+
+            window.alert(currentPriceId)
+
           } else {
             window.alert('未找到所填用户编号的信息，请查证后输入')
           }
