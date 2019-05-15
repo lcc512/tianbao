@@ -50,17 +50,13 @@ router.post('/calculateFee', function (req, res, next) {
   // 获得请求参数
   var body = req.body
 
-  console.log(body)
-
   // mongo查电价，secondPrice 获取不同类别的商业电价
-  var secondPrice = ''
+  var secondPrice = 'Pr1304'
 
-  if (body.selectedPrice === 'Pr1304') {
+  if (body.selectedPrice === '05') {
 
-    secondPrice = 'Pr1304'
-
-  } else if (body.selectedPrice === 'Pr1305') {
     secondPrice = 'Pr1305'
+
   }
 
   ElePrice.findOne({

@@ -12,7 +12,7 @@
 function calculateFee(body, priceObject_G, priceObject_S) {
 
   // console.log(body)
-  // console.log(priceObject)
+  console.log(priceObject_S)
 
   // 遍历，转换为浮点数
   for (var index in body) {

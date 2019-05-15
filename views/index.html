@@ -64,9 +64,9 @@
         <div class="form-group col-md-3 col-sm-6  ">
           <label for="">电价版本</label>
           <select class="form-control" name="selectedPrice">
-            <option value="Pr1301" selected>10kv工业动照比</option>
-            <option value="Pr1304">10kv商业</option>
-            <option value="Pr1305">0.4kv商业</option>
+            <option value="01" selected>10kv工业动照比</option>
+            <option value="04">10kv商业</option>
+            <option value="05">0.4kv商业</option>
           </select>
         </div>
         <div class="form-group col-md-3 col-sm-6  ">
@@ -157,17 +157,18 @@
             $("[name='ratio']").val(user.ratio)
 
 
+            // 处理电价编号问题
             var currentPriceId=''
 
             var gongye=['01','02','03','06'].indexOf(user.priceId.substring(4))
             var shangye=['04','07'].indexOf(user.priceId.substring(4))
 
             if(gongye!==-1){
-              currentPriceId=user.priceId.substring(0,4)+'01'
+              currentPriceId='01'//工业
             }else if(shangye!==-1){
-              currentPriceId=user.priceId.substring(0,4)+'04'
+              currentPriceId='04'//04 大商
             }else{
-              currentPriceId=user.priceId
+              currentPriceId='05'//05 小商
             }
 
             $("[name='selectedPrice']").val(currentPriceId)
