@@ -121,13 +121,18 @@
       $.ajax({
         url: '/calculateFee',
         type: 'post',
+        timeout:5000,
         data: formData,//提交的数据
         dataType: 'json',//预期服务器返回的数据类型
         success: function (data) {
           // console.log('chengongla')
           // console.log(data)
           window.location.href = '/calculateFee'
-        }
+        },
+        error:function(err){
+          window.alert('获取错误，请后台查看详情')
+          console.log(err)
+      }
       })
     })
 
@@ -139,6 +144,7 @@
       $.ajax({
         url: '/findUser',
         type: 'post',
+        timeout:5000,
         data: formData,//提交的数据
         dataType: 'json',//预期服务器返回的数据类型
         success: function (data) {
@@ -173,14 +179,14 @@
 
             $("[name='selectedPrice']").val(currentPriceId)
 
-
-            // window.alert(currentPriceId)
-
           } else {
             window.alert('未找到所填用户编号的信息，请查证后输入')
           }
 
-
+        },
+        error:function(err){
+          window.alert('获取错误，请后台查看详情')
+          console.log(err)
         }
       })
     })

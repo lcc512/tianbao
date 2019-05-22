@@ -12,10 +12,10 @@
 function calculateFee(body, priceObject_G, priceObject_S) {
 
   // console.log(body)
-  console.log(priceObject_S)
 
   // 遍历，转换为浮点数
   for (var index in body) {
+    body[index]=body[index]||0//input不填东西的时候置为0
     body[index] = parseFloat(body[index])
   }
 
@@ -53,6 +53,9 @@ function calculateFee(body, priceObject_G, priceObject_S) {
   s.enumNum = (body.tinNum + body.peakNum + body.flatNum + body.valNum) * (100 - body.ratio) / 100||0
 
   all.enumNum = g.enumNum + s.enumNum
+  
+  console.log(100 - body.ratio)
+  console.log(s.enumNum)
 
   g.bkDataFeeAll = g.tinExe + g.peakExe + g.flatExe + g.valExe
   s.bkDataFeeAll = s.tinExe + s.peakExe + s.flatExe + s.valExe
@@ -104,6 +107,7 @@ function calculateLossEnumExes(body, result) {
 
   // 遍历，转换为浮点数
   for (var index in body) {
+    body[index]=body[index]||0//input不填东西的时候置为0
     body[index] = parseFloat(body[index])
   }
 
@@ -148,6 +152,7 @@ function calculateProcedureFee(body, resultBkdata) {
 
   // 遍历，转换为浮点数
   for (var index in body) {
+    body[index]=body[index]||0//input不填东西的时候置为0
     body[index] = parseFloat(body[index])
   }
 
